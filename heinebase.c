@@ -3,7 +3,7 @@
 #include <time.h>
 #include <string.h>
 
-#define NUM_POEMS 53 //total number of poems
+#define NUM_POEMS 53 /* total number of poems */
 
 char* heine_db[] = {
     "Think of Germany in the night,\n"
