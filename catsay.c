@@ -148,15 +148,24 @@ char* get_poem(void){
 
 int main(int argc, char* argv[]) {
     if(argc > 1){
-        size_t input_len = strlen(argv[1]);
-        for(size_t i = 1; i < argc; i++){
+        int input_len = strlen(argv[1]);
+        for(int i = 1; i < argc; i++){
             input_len += strlen(argv[i]) + 1;
         }
         char* input = malloc(input_len);
         input[0] = '\0';
-        for(size_t i = 1; i < argc; i++){
+        int line_len = 0;
+        for(int i = 1; i < argc; i++){
             strcat(input, argv[i]);
-            if(i != argc - 1) strcat(input, " ");
+            if(i != argc - 1){
+              if(line_len > MAX_LEN){
+                strcat(input, "\n");
+                line_len = 0;
+              } else {
+                line_len += strlen(argv[i]);
+                strcat(input, " ");
+              }
+            }
         }
         parse_statement(input);
         print_cat();

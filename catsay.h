@@ -3,10 +3,11 @@
 
 #include <stdlib.h>
 
-#define MAX_LEN 30      /* maximum number of characters in line         */
-#define TAB_SIZE 4      /* num of spaces \t will be interpreted as      */
-#define CHANCE 5        /* once every how many tries will the cat think */
-#define MAX_LINES 10    /* maximum number of lines in a poem            */
+#define TAB_SIZE 4       /* num of spaces \t will be interpreted as      */
+#define CHANCE 5         /* once every how many tries will the cat think */
+#define MAX_LINES 10     /* maximum number of lines in a poem            */
+#define MAX_LEN 25 /* maximum number of characters in a line     */
+
 
 size_t tabstrlen(const char* str);
 void short_catsay(char* poem[], size_t max);
