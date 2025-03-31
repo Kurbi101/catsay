@@ -1,14 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "heinebase.c"
-
-#define MAX_LEN 30      /* maximum number of characters in line         */ 
-#define TAB_SIZE 4      /* num of spaces \t will be interpreted as      */
-#define CHANCE 5        /* once every how many tries will the cat think */
-#define MAX_LINES 10    /* maximum number of lines in a poem            */
-
-
+#include <time.h>
+#include "heinebase.h"
+#include "catsay.h"
 
 /* strlen equivelent but doesnt screw up with tabs */
 size_t tabstrlen(const char* str) {
@@ -35,6 +30,7 @@ void short_catsay(char* poem[], size_t max){
     printf("        \\\n");
     printf("         \\\n");
 }
+
 void short_catthink(char* poem[], size_t max){
     printf(" ");
     for(size_t i = 0; i < max + 1; i++) printf("_");
@@ -72,6 +68,7 @@ void catsay(char* poem[], size_t max, int len){
     printf("        \\\n");
     printf("         \\\n");
 }
+
 void catthink(char* poem[], size_t max, int len){
     printf(" ");
     for(size_t i = 0; i < max + 1; i++) printf("_");
@@ -131,10 +128,7 @@ void parse_statement(char* input){
 
 }
 
-
-
-
-void print_cat(){
+void print_cat(void){
     printf("\t⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡀⠀⠀⠀⠀\n");
     printf("\t⠀⠀⠀⠀⢀⡴⣆⠀⠀⠀⠀⠀⣠⡀⠀⠀⠀⠀⠀⠀⣼⣿⡗⠀⠀⠀⠀\n");
     printf("\t⠀⠀⠀⣠⠟⠀⠘⠷⠶⠶⠶⠾⠉⢳⡄⠀⠀⠀⠀⠀⣧⣿⠀⠀⠀⠀⠀\n");
@@ -146,11 +140,32 @@ void print_cat(){
     printf("\t⠀⠀⠀⠀⠀⠀⠀⠀⠛⠛⠋⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n");
 }
 
-
-int main() {
+char* get_poem(void){
     srand(time(NULL));
+    int random = rand() % NUM_POEMS;
+    return heine_db[random];
+}
+
+int main(int argc, char* argv[]) {
+    if(argc > 1){
+        size_t input_len = strlen(argv[1]);
+        for(size_t i = 1; i < argc; i++){
+            input_len += strlen(argv[i]) + 1;
+        }
+        char* input = malloc(input_len);
+        input[0] = '\0';
+        for(size_t i = 1; i < argc; i++){
+            strcat(input, argv[i]);
+            if(i != argc - 1) strcat(input, " ");
+        }
+        parse_statement(input);
+        print_cat();
+        free(input);
+        return 0;
+    } else{
     char* poem = get_poem();
     parse_statement(poem);    
     print_cat();
+    }
     return 0;
 }

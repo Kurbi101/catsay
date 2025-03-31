@@ -1,9 +1,10 @@
+#ifndef HEINEBASE_H
+#define HEINEBASE_H
+
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
-#include <string.h>
 
-#define NUM_POEMS 53 /* total number of poems */
+#define NUM_POEMS (int)(sizeof(heine_db) / sizeof(heine_db[0])) /* total number of poems */
 
 char* heine_db[] = {
     "Think of Germany in the night,\n"
@@ -238,21 +239,7 @@ char* heine_db[] = {
     "They would cheer my misery lonely\n"
     "    With their notes so tuneful and glad.\n",
 
-    "\n" 
+    "\n"
 };
 
-
-char* get_poem(){
-    srand(time(NULL));
-    int random = rand() % NUM_POEMS;
-    return heine_db[random];
-}
-
-
-// int main(){
-//     /* count poems, if heinebase is updated*/
-//     int i = 0;
-//     while(strcmp(heine_db[i+1], "\n") != 0) i++;
-//     printf("number of poems: %d\n", i);
-//     return 0;
-// }
+#endif //HEINEBASE_H
